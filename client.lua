@@ -302,7 +302,7 @@ Citizen.CreateThread(function(data)
 							params = {
 								event = "qb-methcar:gasmask",
 								args = {
-									message = "Good choise"
+									message = "Good choice"
 								}
 							}
 						},
@@ -478,7 +478,7 @@ Citizen.CreateThread(function(data)
 							params = {
 								event = "qb-methcar:gasmask",
 								args = {
-									message = "Good choise"
+									message = "Good choice"
 								}
 							}
 						},
