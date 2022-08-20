@@ -20,9 +20,9 @@ Please consider supporting ❤
 
 2. Add these lines below to: qb-core/shared.lua under QBShared.Items
 #
-	["acetone"] 				 	 = {["name"] = "acetone", 			  			["label"] = "Acetone", 					["weight"] = 5000, 		["type"] = "item", 		["image"] = "acetone.png", 				["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
-	["methlab"] 				 	 = {["name"] = "methlab", 			  			["label"] = "Lab", 						["weight"] = 15000, 	["type"] = "item", 		["image"] = "lab.png", 					["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
-	["lithium"] 				 	 = {["name"] = "lithium", 			  			["label"] = "Lithium", 					["weight"] = 1000, 		["type"] = "item", 		["image"] = "lithium.png", 				["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
+	["Aceton"] 				 	 = {["name"] = "Aceton", 			  			["label"] = "Aceton", 					["weight"] = 5000, 		["type"] = "item", 		["image"] = "acetone.png", 				["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
+	["Methlabor"] 				 	 = {["name"] = "Methlabor", 			  			["label"] = "Methlabor", 						["weight"] = 15000, 	["type"] = "item", 		["image"] = "lab.png", 					["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
+	["Lithium"] 				 	 = {["name"] = "Lithium", 			  			["label"] = "Lithium", 					["weight"] = 1000, 		["type"] = "item", 		["image"] = "lithium.png", 				["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["description"] = "Stuff to cook!"},
 
 3. Add the images (acetone.png/lithium.png/lab.png) to qb-inventory/html/images
 
@@ -30,9 +30,9 @@ Please consider supporting ❤
 
 ## Usage
 In you're server give yourself the items above:
-5x Acetone
+5x Aceton
 2x Lithium
-1x Methlab
+1x Methlabor
 
 And take place on the passengerside of the JOURNEY, then press E and enjoy 😉👍🏼
 

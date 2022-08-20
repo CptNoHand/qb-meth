@@ -37,7 +37,7 @@ local LastCar
 RegisterNetEvent('qb-methcar:stop')
 AddEventHandler('qb-methcar:stop', function()
 	started = false
-	QBCore.Functions.Notify("Production stopped...", "error")
+	QBCore.Functions.Notify("Produktion gestoppt...", "error")
 	FreezeEntityPosition(LastCar, false)
 end)
 
@@ -55,7 +55,7 @@ RegisterNetEvent('qb-methcar:startprod')
 AddEventHandler('qb-methcar:startprod', function()
 	started = true
 	FreezeEntityPosition(CurrentVehicle,true)
-	QBCore.Functions.Notify("Production started", "success")	
+	QBCore.Functions.Notify("Produktion gestartet", "success")	
 	SetPedIntoVehicle((PlayerPedId()), CurrentVehicle, 3)
 	SetVehicleDoorOpen(CurrentVehicle, 2)
 end)
@@ -115,7 +115,7 @@ AddEventHandler('qb-methcar:drugged', function()
 	SetPedMotionBlur((PlayerPedId()), true)
 	SetPedMovementClipset((PlayerPedId()), "MOVE_M@DRUNK@SLIGHTLYDRUNK", true)
 	SetPedIsDrunk((PlayerPedId()), true)
-	quality = quality - 2
+	quality = quality - 3
 	pause = false
 	Citizen.Wait(90000)
 	ClearTimecycleModifier()
@@ -128,24 +128,6 @@ RegisterNetEvent('qb-methcar:q-1police', function(data)
 	quality = quality - 1
 	pause = false
 	TriggerServerEvent('police:server:policeAlert', 'Person reports stange smell!')
-	local data = exports['cd_dispatch']:GetPlayerInfo()
-            TriggerServerEvent('cd_dispatch:AddNotification', {
-                job_table = {'police'}, 
-                coords = data.coords,
-                title = '1-5 - Possible Drugs',
-                message = 'A '..data.sex..' someone smells something strange '..data.street, 
-                flash = 0,
-                unique_id = tostring(math.random(0000000,9999999)),
-                blip = {
-                    sprite = 431, 
-                    scale = 1.2, 
-                    colour = 3,
-                    flashes = false, 
-                    text = '911 - Possible Drugs',
-                    time = (5*60*1000),
-                    sound = 1,
-                }
-            })
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
 
@@ -160,7 +142,7 @@ end)
 RegisterNetEvent('qb-methcar:q-3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
-	quality = quality - 2
+	quality = quality - 3
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -168,7 +150,7 @@ end)
 RegisterNetEvent('qb-methcar:q-5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
-	quality = quality - 3
+	quality = quality - 5
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -177,7 +159,7 @@ end)
 RegisterNetEvent('qb-methcar:q2', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 1
+	quality = quality + 2
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -185,7 +167,7 @@ end)
 RegisterNetEvent('qb-methcar:q3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 2
+	quality = quality + 3
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -193,7 +175,7 @@ end)
 RegisterNetEvent('qb-methcar:q5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 3
+	quality = quality + 5
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -202,7 +184,7 @@ RegisterNetEvent('qb-methcar:gasmask', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	SetPedPropIndex(playerPed, 1, 26, 7, true)
-	quality = quality + 1
+	quality = quality + 2
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -221,7 +203,7 @@ Citizen.CreateThread(function(data)
 			local modelName = GetDisplayNameFromVehicleModel(model)			
 			if modelName == 'JOURNEY' and car then				
 					if GetPedInVehicleSeat(car, -0) == playerPed then
-							DrawText3D(pos.x, pos.y, pos.z, '~g~E~w~ to (cook)')
+							DrawText3D(pos.x, pos.y, pos.z, '~g~E~w~ zum (Kochen)')
 							if IsControlJustReleased(0, Keys['E']) then
 								if IsVehicleSeatFree(CurrentVehicle, 3) then
 									TriggerServerEvent('qb-methcar:start')
@@ -230,7 +212,7 @@ Citizen.CreateThread(function(data)
 									pause = false
 									quality = 0		
 								else
-									QBCore.Functions.Notify('This kichen is already in use..')
+									QBCore.Functions.Notify('Diese Küche wird bereits Benutzt..')
 								end
 							end
 					end		
@@ -249,7 +231,7 @@ Citizen.CreateThread(function(data)
 				if not pause and IsPedInAnyVehicle(playerPed) then
 					progress = progress +  1
 					quality = quality + 1
-					QBCore.Functions.Notify('Meth production: ' .. progress .. '%')
+					QBCore.Functions.Notify('Meth Produktion: ' .. progress .. '%')
 					Citizen.Wait(4000)
 				end
 				--
@@ -259,31 +241,31 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "Gas tank is leaking... now what?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Ein Rohr ist undicht ... was jetzt?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Fix with tape",
+							header = "🔴 Mit Klebeband reparieren",
 							params = {
 								event = "qb-methcar:q-3",
 								args = {
-									message = "That kinda fixed it, i think?!"
+									message = "Ich denke, das sollte halten?!"
 								}
 							}
 						},
 						{
-							header = "🔴 Let it go!",
+							header = "🔴 Lass es so!",
 							params = {
 								event = "qb-methcar:boom"
 							}
 						},
 						{
-							header = "🔴 Replace tube",
+							header = "🔴 Ersetzte das Rohr",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "Replacing was the best solution!"
+									message = "Ersetzen war die beste Entscheidung!"
 								}
 							}
 						},
@@ -296,31 +278,31 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "You spilled some acetone on the floor.. now what?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Du hast etwas Aceton verschüttet .. was jetzt?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Open a window",
+							header = "🔴 Öffne ein Fenster",
 							params = {
 								event = "qb-methcar:q-1police",
 								args = {
-									message = "The smell is reaching more people..."
+									message = "Den Geruch bekommen viele Leute mit..."
 								}
 							}
 						},
 						{
-							header = "🔴 Breathe it in..",
+							header = "🔴 Atme es weg..",
 							params = {
 								event = "qb-methcar:drugged"
 							}
 						},
 						{
-							header = "🔴 Put on a gass mask",
+							header = "🔴 Setze eine Gasmaske auf! ",
 							params = {
 								event = "qb-methcar:gasmask",
 								args = {
-									message = "Good choice"
+									message = "Eine Gute Entscheidung!"
 								}
 							}
 						},
@@ -333,34 +315,34 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "Meth is clugging up to fast, what to do?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Meth verstopft zu schnell, was ist zu tun?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Add more temperature",
+							header = "🔴 Erhöhe die Temperatur",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "A higher temperture made the perfect balance!"
+									message = "Eine höhere Temperatur sorgt füre eine gute Ballance!"
 								}
 							}
 						},
 						{
-							header = "🔴 Add more pressure",
+							header = "🔴 Erhöhe den Druck",
 							params = {
 								event = "qb-methcar:q-3",
 								args = {
-									message = "The pressure fluctuated a lot.."
+									message = "Der Druck schwankt sehr.."
 								}
 							}
 						},
 						{
-							header = "🔴 Lower the pressure",
+							header = "🔴 Verringere den Druck",
 							params = {
 								event = "qb-methcar:q-5",
 								args = {
-									message = "That was the worst thing to do!"
+									message = "Das war das Schlimmste was du tun hättest können!"
 								}
 							}
 						},
@@ -373,31 +355,31 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "You added to much acetone, what to do?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Du hast zuviel Aceton zugegeben, was ist zu tun?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Do nothing..",
+							header = "🔴 Mache nix..",
 							params = {
 								event = "qb-methcar:q-5",
 								args = {
-									message = "The Meth is smelling like pure acetone"
+									message = "Das Meth riecht nach purem Aceton!"
 								}
 							}
 						},
 						{
-							header = "🔴 Use a straw to suck it out",
+							header = "🔴 Benutze einen Strohhalm um es abzusaugen",
 							params = {
 								event = "qb-methcar:drugged"
 							}
 						},
 						{
-							header = "🔴 Add lithium to stabilize",
+							header = "🔴Füge Lithium zum ausgleichen hinzu",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "Smart solution"
+									message = "Clevere Lösung"
 								}
 							}
 						},
@@ -410,25 +392,25 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "There is some blue pigment, use it?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Oh das ist etwas Blauer Farbstoff, soll ich ihn Benutzen?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Add it in the mix!",
+							header = "🔴 Füge es zum Mix hinzu!",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "Smart move, people like it!"
+									message = "Sehr gut, die Leute werden es LIeben!"
 								}
 							}
 						},
 						{
-							header = "🔴 Put away",
+							header = "🔴 Pack es zur Seite",
 							params = {
 								event = "qb-methcar:q-1",
 								args = {
-									message = "Not very creative are you?"
+									message = "Du bist nicht sehr Kreativ oder?"
 								}
 							}
 						},
@@ -441,34 +423,34 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "The filter is filthy, now what?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Der Filter ist voll, was nun?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Blow it out with a compressor",
+							header = "🔴 Blase ihn mit dem Kompressor aus",
 							params = {
 								event = "qb-methcar:q-5",
 								args = {
-									message = "You made a mess of the product!"
+									message = "Du hast das Produkt Versaut!"
 								}
 							}
 						},
 						{
-							header = "🔴 Replace the filter!",
+							header = "🔴 Ersetzte den Filter!",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "Replacing was the best option!"
+									message = "Ersetzen war die Beste Lösung!"
 								}
 							}
 						},
 						{
-							header = "🔴 Clean it with a brush",
+							header = "🔴 Säubere ihn mit einem Pinsel",
 							params = {
 								event = "qb-methcar:q-1",
 								args = {
-									message = "It helped but not enough"
+									message = "Es hilft aber nicht gerade viel"
 								}
 							}
 						},
@@ -481,31 +463,31 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "You spilled some acetone on the floor.. now what?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Du hast etwas Aceton verschüttet .. was jetzt?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Breathe it in..",
+							header = "🔴 Atme es weg..",
 							params = {
 								event = "qb-methcar:drugged"
 							}
 						},
 						{
-							header = "🔴 Put on a gass mask",
+							header = "🔴 Setze eine Gasmaske auf",
 							params = {
 								event = "qb-methcar:gasmask",
 								args = {
-									message = "Good choice"
+									message = "Gute Entscheidung!"
 								}
 							}
 						},
 						{
-							header = "🔴 Open a window",
+							header = "🔴 Öffne ein Fenster",
 							params = {
 								event = "qb-methcar:q-1police",
 								args = {
-									message = "The smell is reaching more people..."
+									message = "Den Geruch bekommen viele Leute mit..."
 								}
 							}
 						},
@@ -518,18 +500,18 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "Gas tank is leaking... now what?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Ein Rohr ist undicht ... was jetzt?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Let it go!",
+							header = "🔴 Lass es so!",
 							params = {
 								event = "qb-methcar:boom"
 							}
 						},
 						{
-							header = "🔴 Fix it with tape",
+							header = "🔴 Mit Klebeband reparieren",
 							params = {
 								event = "qb-methcar:q-3",
 								args = {
@@ -538,7 +520,7 @@ Citizen.CreateThread(function(data)
 							}
 						},
 						{
-							header = "🔴 Replace tube",
+							header = "🔴 Ersetzte das Rohr",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
@@ -555,34 +537,34 @@ Citizen.CreateThread(function(data)
 					pause = true
 					exports['qb-menu']:openMenu({
 						{
-							header = "You really need to take a shit! What do you do?",
-							txt = "Pick your answer below. Progres: " .. progress .. "%",
+							header = "Du musst wirklich scheißen! Was machst du jetzt?",
+							txt = "Wähle deine Antwort. Fortschritt: " .. progress .. "%",
 							isMenuHeader = true,
 						},
 						{
-							header = "🔴 Just pinch it off!",
+							header = "🔴 Einfach abkneifen!",
 							params = {
 								event = "qb-methcar:q5",
 								args = {
-									message = "SUPER JOB, i'm proud!"
+									message = "SUPER JOB, ich bin Stolz!"
 								}
 							}
 						},
 						{
-							header = "🔴 Go outside to shit!",
+							header = "🔴 Geh raus zum scheißen!",
 							params = {
 								event = "qb-methcar:q-1police",
 								args = {
-									message = "Somebody spotted you're suspicious work!"
+									message = "Jemand hat Ihre verdächtige Arbeit entdeckt!"
 								}
 							}
 						},
 						{
-							header = "🔴 Shit inside!",
+							header = "🔴 Scheiße drinnen!",
 							params = {
 								event = "qb-methcar:q-5",
 								args = {
-									message = "Not good! Everything smells like SHIT!"
+									message = "Garnicht Gut! Alles riecht nach Scheiße!"
 								}
 							}
 						},
@@ -591,8 +573,8 @@ Citizen.CreateThread(function(data)
 			else
 				TriggerEvent('qb-methcar:stop')
 				progress = 100
-				QBCore.Functions.Notify('Meth production: ' .. progress .. '%')
-				QBCore.Functions.Notify("Done!!", "success")
+				QBCore.Functions.Notify('Meth Produktion: ' .. progress .. '%')
+				QBCore.Functions.Notify("Fertig!!", "success")
 				TriggerServerEvent('qb-methcar:finish', quality)
 				SetPedPropIndex(playerPed, 1, 0, 0, true)
 				FreezeEntityPosition(LastCar, false)

@@ -13,10 +13,10 @@ AddEventHandler('qb-methcar:start', function()
 			Player.Functions.RemoveItem("acetone", 5, false)
 			Player.Functions.RemoveItem("lithium", 2, false)
 		else
-		TriggerClientEvent('QBCore:Notify', source, "U don't have enough ingredients to cook!", 'error')
+		TriggerClientEvent('QBCore:Notify', source, "Du hast nicht alle Zutaten um zu Kochen!", 'error')
 		end	
 	else
-	TriggerClientEvent('QBCore:Notify', source, "You're missing essential ingredients!", 'error')
+	TriggerClientEvent('QBCore:Notify', source, "Dir fehlen essenzielle Zutaten!", 'error')
 	end	
 end)
 
@@ -44,7 +44,7 @@ AddEventHandler('qb-methcar:make', function(posx,posy,posz)
 			TriggerClientEvent('qb-methcar:stop', _source)
 		end
 	else
-	TriggerClientEvent('QBCore:Notify', source, "You're missing a lab!", 'error')
+	TriggerClientEvent('QBCore:Notify', source, "Dir fehlt ein Labor!", 'error')
 	end	
 end)
 
@@ -53,7 +53,7 @@ AddEventHandler('qb-methcar:finish', function(qualtiy)
 	local _source = source
 	local xPlayer = QBCore.Functions.GetPlayer(tonumber(source))
 	local rnd = math.random(-5, 5)
-	xPlayer.Functions.AddItem('meth', math.floor(qualtiy / 2) + rnd)	
+	xPlayer.Functions.AddItem('Meth', math.floor(qualtiy / 2) + rnd)	
 end)
 
 RegisterServerEvent('qb-methcar:blow')
