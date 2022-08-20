@@ -128,6 +128,24 @@ RegisterNetEvent('qb-methcar:q-1police', function(data)
 	quality = quality - 1
 	pause = false
 	TriggerServerEvent('police:server:policeAlert', 'Person reports stange smell!')
+	local data = exports['cd_dispatch']:GetPlayerInfo()
+            TriggerServerEvent('cd_dispatch:AddNotification', {
+                job_table = {'police'}, 
+                coords = data.coords,
+                title = '1-5 - Possible Drugs',
+                message = 'A '..data.sex..' someone smells something strange '..data.street, 
+                flash = 0,
+                unique_id = tostring(math.random(0000000,9999999)),
+                blip = {
+                    sprite = 431, 
+                    scale = 1.2, 
+                    colour = 3,
+                    flashes = false, 
+                    text = '911 - Possible Drugs',
+                    time = (5*60*1000),
+                    sound = 1,
+                }
+            })
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
 
