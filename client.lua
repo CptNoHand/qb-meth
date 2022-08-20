@@ -115,7 +115,7 @@ AddEventHandler('qb-methcar:drugged', function()
 	SetPedMotionBlur((PlayerPedId()), true)
 	SetPedMovementClipset((PlayerPedId()), "MOVE_M@DRUNK@SLIGHTLYDRUNK", true)
 	SetPedIsDrunk((PlayerPedId()), true)
-	quality = quality - 3
+	quality = quality - 2
 	pause = false
 	Citizen.Wait(90000)
 	ClearTimecycleModifier()
@@ -127,7 +127,24 @@ RegisterNetEvent('qb-methcar:q-1police', function(data)
 	QBCore.Functions.Notify(data.message, "error")
 	quality = quality - 1
 	pause = false
-	TriggerServerEvent('police:server:policeAlert', 'Person reports stange smell!')
+	local data = exports['cd_dispatch']:GetPlayerInfo()
+    TriggerServerEvent('cd_dispatch:AddNotification', {
+        job_table = {'police'}, 
+        coords = data.coords,
+        title = '1-5 - Possible Drugs',
+        message = 'A '..data.sex..' someone smells something strange '..data.street, 
+        flash = 0,
+        unique_id = tostring(math.random(0000000,9999999)),
+        blip = {
+            sprite = 431, 
+            scale = 1.2, 
+            colour = 3,
+            flashes = false, 
+            text = '911 - Possible Drugs',
+            time = (5*60*1000),
+            sound = 1,
+        }
+    })
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
 
@@ -142,7 +159,7 @@ end)
 RegisterNetEvent('qb-methcar:q-3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
-	quality = quality - 3
+	quality = quality - 2
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -150,7 +167,7 @@ end)
 RegisterNetEvent('qb-methcar:q-5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
-	quality = quality - 5
+	quality = quality - 3
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -159,7 +176,7 @@ end)
 RegisterNetEvent('qb-methcar:q2', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 2
+	quality = quality + 1
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -167,7 +184,7 @@ end)
 RegisterNetEvent('qb-methcar:q3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 3
+	quality = quality + 2
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -175,7 +192,7 @@ end)
 RegisterNetEvent('qb-methcar:q5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
-	quality = quality + 5
+	quality = quality + 3
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
@@ -184,7 +201,7 @@ RegisterNetEvent('qb-methcar:gasmask', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	SetPedPropIndex(playerPed, 1, 26, 7, true)
-	quality = quality + 2
+	quality = quality + 1
 	pause = false
 	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
 end)
